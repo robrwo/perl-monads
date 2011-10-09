@@ -5,7 +5,7 @@ use strict;
 
 =head1 NAME
 
-Monad::Maybe - A quasi-implementation of the Maybe monad in Perl
+Monad::Either - A quasi-implementation of the Either monad in Perl
 
 =head1 VERSION
 
@@ -20,7 +20,7 @@ our $VERSION = '0.01';
 =head1 DESCRIPTION
 
 This is an experimental Perl implementation of a class with some
-properties of the Maybe monad.
+properties of the Either monad.
 
 =cut
 
@@ -162,4 +162,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of Monad::Maybe
+1; # End of Monad::Either
