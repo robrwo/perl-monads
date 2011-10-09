@@ -1,6 +1,13 @@
+#!perl -T
+
 use strict;
 use warnings;
 use Test::More;
+
+unless ( $ENV{RELEASE_TESTING} ) {
+    plan( skip_all => "Author tests not required for installation" );
+
+}
 
 # Ensure a recent version of Test::Pod::Coverage
 my $min_tpc = 1.08;
