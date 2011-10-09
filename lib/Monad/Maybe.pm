@@ -58,7 +58,6 @@ sub is_nothing {
 sub just {
     my ($class, $arg) = @_;
     if (defined $arg) {
-#	my $self = \$arg;
 	return bless \$arg, $class;
     } else {
 	return $class->nothing;
@@ -71,7 +70,6 @@ sub just {
 
 sub bind {
     my ($self, $func) = @_;
-    my $class = ref($self) || __PACKAGE__;
     return ($self->is_nothing) ? $self : &{$func}( ${$self} );
 }
 
@@ -85,7 +83,8 @@ sub join {
 	&& ref(${$self}) && ${$self}->isa(__PACKAGE__)) {
 	return ${$self};
     } else {
-	return __PACKAGE__->nothing();
+	my $class = ref($self) || __PACKAGE__;
+	return $class->nothing;
     }
 }
 
