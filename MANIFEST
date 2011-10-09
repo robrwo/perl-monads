@@ -2,6 +2,7 @@ Changes
 MANIFEST
 Makefile.PL
 README
+lib/Monad/Either.pm
 lib/Monad/Maybe.pm
 t/00-load.t
 t/manifest.t
