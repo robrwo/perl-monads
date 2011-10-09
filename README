@@ -1,0 +1,35 @@
+NAME
+    Monad::Maybe - A quasi-implementation of the Maybe monad in Perl
+
+VERSION
+    Version 0.01
+
+SYNOPSIS
+DESCRIPTION
+    This is an experimental Perl implementation of a class with some
+    properties of the Maybe monad.
+
+  Methods
+    nothing
+    is_nothing
+    just
+    bind
+    join
+
+  Subroutines
+    Nothing
+    Just
+    lift
+
+AUTHOR
+    Robert Rothenberg, "<rrwo at cpan.org>"
+
+LICENSE AND COPYRIGHT
+    Copyright 2011 Robert Rothenberg.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of either: the GNU General Public License as published
+    by the Free Software Foundation; or the Artistic License.
+
+    See http://dev.perl.org/licenses/ for more information.
+
