@@ -70,7 +70,19 @@ sub just {
 
 sub bind {
     my ($self, $func) = @_;
-    return ($self->is_nothing) ? $self : &{$func}( ${$self} );
+    if ($self->is_nothing) {
+	return $self;
+    } else {
+	my $class = ref($self) || __PACKAGE__;
+	eval {
+	    my $val = &{$func}( ${$self} );
+	    if ((ref $val) && $val->isa(__PACKAGE__)) {
+		return $val;
+	    } else {
+		return $class->nothing;
+	    }
+	} or return $class->nothing;
+    }
 }
 
 =item join
@@ -120,7 +132,9 @@ sub lift {
 	my $self   = $_[0];
 	my $class  = ref($self) || __PACKAGE__;
 	return $class->nothing if (grep $_->is_nothing, @_);
-	return $class->just( &{$func}( map { ${$_} } @_ ) );
+	eval {
+	    return $class->just( &{$func}( map { ${$_} } @_ ) );
+	} or return $class->nothing;
     };
 }
 
