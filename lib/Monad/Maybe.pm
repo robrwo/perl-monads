@@ -17,6 +17,24 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
+  use Maybe::Monad;
+
+  *suc = sub { Just(1 + shift) };
+
+  $a = Just(10);
+
+  $x->bind(\&suc);   # returns Just(11);
+
+  *div = lift(sub { $_[0] / $_[1] });
+
+  *add = lift(sub { $_[0] + $_[1] });
+
+  $b = Just(0);
+
+  $c = div($a, $b);  # $c is Nothing
+
+  $d = add($c, $a);  # $d is Nothing
+
 =head1 DESCRIPTION
 
 This is an experimental Perl implementation of a class with some
@@ -36,6 +54,10 @@ our @EXPORT = qw( lift Nothing Just );
 
 =item nothing
 
+  $x = Monad::Maybe->nothing;
+
+A constructor that returns "nothing".
+
 =cut
 
 sub nothing {
@@ -45,6 +67,10 @@ sub nothing {
 
 =item is_nothing
 
+  if ($x->is_nothing) { ... }
+
+Returns true if the object is "nothing".
+
 =cut
 
 sub is_nothing {
@@ -52,6 +78,10 @@ sub is_nothing {
 }
 
 =item just
+
+  $x = Monad::Maybe->just( $scalar );
+
+A constructor that sets the value of the monad to "just" the argument.
 
 =cut
 
@@ -65,6 +95,15 @@ sub just {
 }
 
 =item bind
+
+  $x->bind( $f );
+
+Applies a function to the value of C<$x>, where C<$f> is a function
+that takes a non-monad as an argument and returns a C<Monad::Maybe>
+value.
+
+If the function does not return a C<Monad::Maybe> object, then it will
+return "nothing".
 
 =cut
 
@@ -87,6 +126,14 @@ sub bind {
 
 =item join
 
+  $x->join;
+
+Takes a C<Monad::Maybe> of a C<Monad::Maybe> and returns a
+C<Monad::Maybe>.
+
+If C<$x> is not a C<Monad::Maybe> of a C<Monad::Maybe>, then it
+returns "nothing".
+
 =cut
 
 sub join {
@@ -108,6 +155,10 @@ sub join {
 
 =item Nothing
 
+  $x = Nothing;
+
+Shorthand for the L</nothing> constructor.
+
 =cut
 
 sub Nothing() {
@@ -116,6 +167,10 @@ sub Nothing() {
 
 =item Just
 
+  $x = Just( $v );
+
+Shorthand for the L</just> constructor.
+
 =cut
 
 sub Just {
@@ -123,6 +178,10 @@ sub Just {
 }
 
 =item lift
+
+  $g = lift( $f );
+
+Lifts a non-monadic function to a C<Monad::Maybe> function.
 
 =cut
 
@@ -139,6 +198,10 @@ sub lift {
 }
 
 =back
+
+=head1 CAVEATS
+
+This is an experimental module. The interface may change completely.
 
 =head1 AUTHOR
 
