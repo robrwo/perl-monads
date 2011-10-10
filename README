@@ -5,21 +5,89 @@ VERSION
     Version 0.01
 
 SYNOPSIS
+      use Maybe::Monad;
+
+      *suc = sub { Just(1 + shift) };
+
+      $a = Just(10);
+
+      $x->bind(\&suc);   # returns Just(11);
+
+      *div = lift(sub { $_[0] / $_[1] });
+
+      *add = lift(sub { $_[0] + $_[1] });
+
+      $b = Just(0);
+
+      $c = div($a, $b);  # $c is Nothing
+
+      $d = add($c, $a);  # $d is Nothing
+
 DESCRIPTION
     This is an experimental Perl implementation of a class with some
     properties of the Maybe monad.
 
   Methods
     nothing
+          $x = Monad::Maybe->nothing;
+
+        A constructor that returns "nothing".
+
     is_nothing
+          if ($x->is_nothing) { ... }
+
+        Returns true if the object is "nothing".
+
     just
+          $x = Monad::Maybe->just( $scalar );
+
+        A constructor that sets the value of the monad to "just" the
+        argument.
+
     bind
+          $x->bind( $f );
+
+        Applies a function to the value of $x, where $f is a function that
+        takes a non-monad as an argument and returns a "Monad::Maybe" value.
+
+        If the function does not return a "Monad::Maybe" object, then it
+        will return "nothing".
+
+        If $x is nothing, then the $f is not actually run, and "bind"
+        returns "nothing".
+
     join
+          $x->join;
+
+        Takes a "Monad::Maybe" of a "Monad::Maybe" and returns a
+        "Monad::Maybe".
+
+        If $x is not a "Monad::Maybe" of a "Monad::Maybe", then it returns
+        "nothing".
 
   Subroutines
     Nothing
+          $x = Nothing;
+
+        Shorthand for the "nothing" constructor.
+
     Just
+          $x = Just( $v );
+
+        Shorthand for the "just" constructor.
+
     lift
+          $g = lift( $f );
+
+        Lifts a non-monadic function to a "Monad::Maybe" function.
+
+        If any of the values passed to the lifted function are "nothing",
+        then $f is not actually executed, and $g returns "nothing".
+
+        If $f dies, then $g returns "nothing".
+
+CAVEATS
+    This is an experimental module. The interface may change completely.
 
 AUTHOR
     Robert Rothenberg, "<rrwo at cpan.org>"
