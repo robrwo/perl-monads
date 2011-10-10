@@ -6,6 +6,7 @@ lib/Monad/Either.pm
 lib/Monad/Maybe.pm
 t/00-load-either.t
 t/00-load-maybe.t
+t/10-std-maybe.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
