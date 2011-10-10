@@ -105,6 +105,9 @@ value.
 If the function does not return a C<Monad::Maybe> object, then it will
 return "nothing".
 
+If C<$x> is nothing, then the C<$f> is not actually run, and C<bind>
+returns "nothing".
+
 =cut
 
 sub bind {
@@ -183,6 +186,11 @@ sub Just {
 
 Lifts a non-monadic function to a C<Monad::Maybe> function.
 
+If any of the values passed to the lifted function are "nothing", then
+C<$f> is not actually executed, and C<$g> returns "nothing".
+
+If C<$f> dies, then  C<$g> returns "nothing".
+
 =cut
 
 sub lift {
@@ -216,7 +224,6 @@ under the terms of either: the GNU General Public License as published
 by the Free Software Foundation; or the Artistic License.
 
 See http://dev.perl.org/licenses/ for more information.
-
 
 =cut
 
