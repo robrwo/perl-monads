@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 
 use Monad::Maybe;
 
@@ -47,4 +47,5 @@ my $div = lift(sub {
 &{$test}( &{$div}($x, $z), Nothing); # not actually run
 &{$test}( &{$div}($z, $x), Nothing); # not actually run
 
-
+&{$test}(Just(1)->join, Nothing); # not actually run
+&{$test}(Just(Just(1))->join, Just(1));
