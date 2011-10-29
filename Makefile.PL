@@ -1,3 +1,6 @@
+
+require 5.006;
+
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
