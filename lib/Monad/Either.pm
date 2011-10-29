@@ -1,5 +1,7 @@
 package Monad::Either;
 
+require 5.006;
+
 use warnings;
 use strict;
 

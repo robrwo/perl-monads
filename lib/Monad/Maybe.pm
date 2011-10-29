@@ -1,5 +1,7 @@
 package Monad::Maybe;
 
+require 5.006;
+
 use warnings;
 use strict;
 
