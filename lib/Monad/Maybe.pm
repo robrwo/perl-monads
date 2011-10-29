@@ -104,8 +104,8 @@ Applies a function to the value of C<$x>, where C<$f> is a function
 that takes a non-monad as an argument and returns a C<Monad::Maybe>
 value.
 
-If the function does not return a C<Monad::Maybe> object, then it will
-return "nothing".
+If the function does not return a C<Monad::Maybe> object, or it
+returns an error, then it will return "nothing".
 
 If C<$x> is nothing, then the C<$f> is not actually run, and C<bind>
 returns "nothing".

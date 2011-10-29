@@ -7,7 +7,8 @@ use strict;
 
 =head1 NAME
 
-Monad::Either - A quasi-implementation of the Either monad in Perl
+Monad::Either - A quasi-implementation of the Either String monad in
+Perl
 
 =head1 VERSION
 
@@ -42,6 +43,13 @@ use English qw( -no_match_vars );
 
 =item left
 
+  $x = Monad::Either->left( $scalar );
+
+A left-sided constructor for the monad. This is used for indicating
+error confitions, e.g.
+
+  eval { ... } or Monad::Either->left( $EVAL_ERROR );
+
 =cut
 
 sub left {
@@ -52,6 +60,10 @@ sub left {
 
 =item is_left
 
+  if ($x->is_left) { ... }
+
+Returns true if the object is a left-sided monad.
+
 =cut
 
 sub is_left {
@@ -60,6 +72,11 @@ sub is_left {
 }
 
 =item right
+
+  $x = Monad::Either->right( $scalar );
+
+A right-sided constructor for the monad. This is used for non-error
+("right") values.
 
 =cut
 
@@ -71,6 +88,10 @@ sub right {
 
 =item is_right
 
+  if ($x->is_right) { ... }
+
+Returns true if the object is a right-sided monad.
+
 =cut
 
 sub is_right {
@@ -79,6 +100,19 @@ sub is_right {
 }
 
 =item bind
+
+  $x->bind( $f );
+
+Applies a function to the value of C<$x>, where C<$f> is a function
+that takes a non-monad as an argument and returns a C<Monad::Either>
+value.
+
+If the function does not return a C<Monad::Either> object, or it
+returns an error, then it will return a left-sided monad with an
+error message.
+
+If C<$x> is left-sided, then the C<$f> is not actually run, and C<bind>
+returns C<$x>, passing the error.
 
 =cut
 
@@ -101,6 +135,14 @@ sub bind {
 
 =item join
 
+  $x->join;
+
+Takes a C<Monad::Either> of a C<Monad::Either> and returns a
+C<Monad::Either>.
+
+If C<$x> is not a C<Monad::Either> of a C<Monad::Either>, then it
+returns a left-sided monad with the error.
+
 =cut
 
 sub join {
@@ -122,6 +164,10 @@ sub join {
 
 =item Left
 
+  $x = Left( $scalar );
+
+This is shorthand for the L</left> constructor.
+
 =cut
 
 sub Left {
@@ -130,6 +176,10 @@ sub Left {
 
 =item Right
 
+  $x = Right( $scalar );
+
+This is shorthand for the L</right> constructor.
+
 =cut
 
 sub Right {
@@ -137,6 +187,16 @@ sub Right {
 }
 
 =item lift
+
+  $g = lift( $f );
+
+Lifts a non-monadic function to a C<Monad::Either> function.
+
+If any of the values passed to the lifted function are left-sided,
+then C<$f> is not actually executed, and C<$g> returns the first
+left-sided monad in the argument list..
+
+If C<$f> dies, then C<$g> returns a left-sided monad with the error.
 
 =cut
 
