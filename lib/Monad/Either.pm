@@ -69,6 +69,15 @@ sub right {
     return bless $self, $class;
 }
 
+=item is_right
+
+=cut
+
+sub is_right {
+    my ($self) = @_;
+    return ($self->[0] == RIGHT);
+}
+
 =item bind
 
 =cut
