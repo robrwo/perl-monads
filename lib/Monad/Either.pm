@@ -37,6 +37,8 @@ use enum qw( LEFT RIGHT );
 
 use English qw( -no_match_vars );
 
+use overload 'bool' => \&is_right;
+
 =head2 Methods
 
 =over

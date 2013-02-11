@@ -50,6 +50,10 @@ our @ISA = qw( Exporter );
 
 our @EXPORT = qw( lift Nothing Just );
 
+use overload 'bool' => \&is_just;
+
+use Scalar::Util qw( refaddr );
+
 =head2 Methods
 
 =over
@@ -76,7 +80,7 @@ Returns true if the object is "nothing".
 =cut
 
 sub is_nothing {
-    return ($_[0] == \&nothing);
+    return (refaddr($_[0]) == refaddr(\&nothing));
 }
 
 =item just
@@ -105,7 +109,7 @@ Returns true if the object is not "nothing".
 =cut
 
 sub is_just {
-    return ($_[0] != \&nothing);
+    return (refaddr($_[0]) != refaddr(\&nothing));
 }
 
 =item bind
