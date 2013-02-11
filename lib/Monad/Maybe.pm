@@ -96,6 +96,18 @@ sub just {
     }
 }
 
+=item is_just
+
+  if ($x->is_just) { ... }
+
+Returns true if the object is not "nothing".
+
+=cut
+
+sub is_just {
+    return ($_[0] != \&nothing);
+}
+
 =item bind
 
   $x->bind( $f );
@@ -219,7 +231,7 @@ Robert Rothenberg, C<< <rrwo at cpan.org> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011 Robert Rothenberg.
+Copyright 2011-2013 Robert Rothenberg.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
