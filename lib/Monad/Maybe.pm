@@ -215,7 +215,7 @@ sub lift {
 	my $class  = ref($self) || __PACKAGE__;
 	return $class->nothing if (grep $_->is_nothing, @_);
 	eval {
-	    return $class->just( &{$func}( map { ${$_} } @_ ) );
+	    return $class->just( $func->( map { ${$_} } @_ ) );
 	} or return $class->nothing;
     };
 }

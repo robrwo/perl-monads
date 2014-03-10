@@ -210,7 +210,7 @@ sub lift {
 	    return $lefts[0];
 	}
 	eval {
-	    return $class->right( &{$func}( map { ${$_} } @_ ) );
+	    return $class->right( $func->( map { ${$_} } @_ ) );
 	} or return $class->left($EVAL_ERROR);
     };
 }
