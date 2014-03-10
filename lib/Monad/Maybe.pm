@@ -52,7 +52,7 @@ our @EXPORT = qw( lift Nothing Just );
 
 use overload 'bool' => \&is_just;
 
-use Scalar::Util qw( refaddr );
+use Scalar::Util qw/ blessed refaddr /;
 
 =head2 Methods
 
@@ -136,7 +136,7 @@ sub bind {
 	my $class = ref($self) || __PACKAGE__;
 	eval {
 	    my $val = &{$func}( ${$self} );
-	    if ((ref $val) && $val->isa(__PACKAGE__)) {
+	    if ((blessed $val) && $val->isa(__PACKAGE__)) {
 		return $val;
 	    } else {
 		return $class->nothing;
@@ -160,7 +160,7 @@ returns "nothing".
 sub join {
     my ($self) = @_;
     if ($self->isa(__PACKAGE__)
-	&& ref(${$self}) && ${$self}->isa(__PACKAGE__)) {
+	&& blessed(${$self}) && ${$self}->isa(__PACKAGE__)) {
 	return ${$self};
     } else {
 	my $class = ref($self) || __PACKAGE__;
