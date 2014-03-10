@@ -44,56 +44,72 @@ DESCRIPTION
         A constructor that sets the value of the monad to "just" the
         argument.
 
+        Note that
+
+          Monad::Maybe->just( undef )
+
+        returns "nothing".
+
+    is_just
+          if ($x->is_just) { ... }
+
+        Returns true if the object is not "nothing".
+
     bind
           $x->bind( $f );
 
-        Applies a function to the value of $x, where $f is a function that
-        takes a non-monad as an argument and returns a "Monad::Maybe" value.
+        Applies a function to the value of `$x', where `$f' is a function
+        that takes a non-monad as an argument and returns a `Monad::Maybe'
+        value.
 
-        If the function does not return a "Monad::Maybe" object, then it
-        will return "nothing".
+        If the function does not return a `Monad::Maybe' object, or it
+        returns an error, then it will return "nothing".
 
-        If $x is nothing, then the $f is not actually run, and "bind"
+        If `$x' is nothing, then the `$f' is not actually run, and `bind'
         returns "nothing".
 
     join
           $x->join;
 
-        Takes a "Monad::Maybe" of a "Monad::Maybe" and returns a
-        "Monad::Maybe".
+        Takes a `Monad::Maybe' of a `Monad::Maybe' and returns a
+        `Monad::Maybe'.
 
-        If $x is not a "Monad::Maybe" of a "Monad::Maybe", then it returns
+        If `$x' is not a `Monad::Maybe' of a `Monad::Maybe', then it returns
         "nothing".
 
   Subroutines
     Nothing
           $x = Nothing;
 
-        Shorthand for the "nothing" constructor.
+        Shorthand for the nothing constructor.
 
     Just
           $x = Just( $v );
 
-        Shorthand for the "just" constructor.
+        Shorthand for the just constructor.
 
     lift
           $g = lift( $f );
 
-        Lifts a non-monadic function to a "Monad::Maybe" function.
+        Lifts a non-monadic function to a `Monad::Maybe' function.
 
         If any of the values passed to the lifted function are "nothing",
-        then $f is not actually executed, and $g returns "nothing".
+        then `$f' is not actually executed, and `$g' returns "nothing".
 
-        If $f dies, then $g returns "nothing".
+        If `$f' dies, then `$g' returns "nothing".
 
 CAVEATS
     This is an experimental module. The interface may change completely.
 
+SEE ALSO
+    Data::Monad
+    https://gist.github.com/peczenyj/9445226
+
 AUTHOR
-    Robert Rothenberg, "<rrwo at cpan.org>"
+    Robert Rothenberg, `<rrwo at cpan.org>'
 
 LICENSE AND COPYRIGHT
-    Copyright 2011 Robert Rothenberg.
+    Copyright 2011-2014 Robert Rothenberg.
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of either: the GNU General Public License as published
