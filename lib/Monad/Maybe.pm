@@ -229,6 +229,16 @@ sub lift {
 
 This is an experimental module. The interface may change completely.
 
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Data::Monad>
+
+=item L<https://gist.github.com/peczenyj/9445226>
+
+=back
+
 =head1 AUTHOR
 
 Robert Rothenberg, C<< <rrwo at cpan.org> >>
