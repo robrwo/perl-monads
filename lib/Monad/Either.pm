@@ -2,8 +2,8 @@ package Monad::Either;
 
 require v5.10;
 
-use warnings;
 use strict;
+use warnings;
 
 =head1 NAME
 
@@ -27,15 +27,14 @@ properties of the Either monad.
 
 =cut
 
-require Exporter;
+use Exporter::Lite;
 
-our @ISA = qw( Exporter );
-
-our @EXPORT = qw( lift Left Right );
+our @EXPORT = qw/ lift Left Right /;
 
 use enum qw( LEFT RIGHT );
 
-use English qw( -no_match_vars );
+use English qw/ -no_match_vars /;
+use Scalar::Util qw/ blessed /;
 
 use overload 'bool' => \&is_right;
 
@@ -126,7 +125,7 @@ sub bind {
 	my $class = ref($self) || __PACKAGE__;
 	eval {
 	    my $val = $func->( ${$self} );
-	    if ((ref $val) && $val->isa(__PACKAGE__)) {
+	    if ((blessed $val) && $val->isa(__PACKAGE__)) {
 		return $val;
 	    } else {
 		return $class->left('Expected '.__PACKAGE__);
@@ -150,7 +149,7 @@ returns a left-sided monad with the error.
 sub join {
     my ($self) = @_;
     if ($self->isa(__PACKAGE__)
-	&& ref(${$self}) && ${$self}->isa(__PACKAGE__)) {
+	&& blessed(${$self}) && ${$self}->isa(__PACKAGE__)) {
 	return ${$self};
     } else {
 	my $class = ref($self) || __PACKAGE__;

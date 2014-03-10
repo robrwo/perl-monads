@@ -17,6 +17,7 @@ WriteMakefile(
     PREREQ_PM => {
 	'enum'		=> 0,
         'overload'	=> 0,
+        'Exporter::Lite' => 0,
 	'Scalar::Util'  => 0,
         'Test::More'	=> 0,
     },

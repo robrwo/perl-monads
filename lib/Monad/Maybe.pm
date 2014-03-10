@@ -2,8 +2,8 @@ package Monad::Maybe;
 
 require v5.10;
 
-use warnings;
 use strict;
+use warnings;
 
 =head1 NAME
 
@@ -44,15 +44,12 @@ properties of the Maybe monad.
 
 =cut
 
-require Exporter;
-
-our @ISA = qw( Exporter );
-
-our @EXPORT = qw( lift Nothing Just );
+use Exporter::Lite;
+use Scalar::Util qw/ blessed refaddr /;
 
 use overload 'bool' => \&is_just;
 
-use Scalar::Util qw/ blessed refaddr /;
+our @EXPORT = qw/ lift Nothing Just /;
 
 =head2 Methods
 
