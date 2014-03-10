@@ -224,7 +224,7 @@ Robert Rothenberg, C<< <rrwo at cpan.org> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2011-2013 Robert Rothenberg.
+Copyright 2011-2014 Robert Rothenberg.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
