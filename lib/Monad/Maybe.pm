@@ -86,6 +86,12 @@ sub is_nothing {
 
 A constructor that sets the value of the monad to "just" the argument.
 
+Note that
+
+  Monad::Maybe->just( undef )
+
+returns "nothing".
+
 =cut
 
 sub just {
