@@ -1,6 +1,6 @@
 package Monad::Maybe;
 
-require 5.006;
+require v5.10;
 
 use warnings;
 use strict;
