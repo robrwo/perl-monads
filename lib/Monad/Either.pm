@@ -125,7 +125,7 @@ sub bind {
     } else {
 	my $class = ref($self) || __PACKAGE__;
 	eval {
-	    my $val = &{$func}( ${$self} );
+	    my $val = $func->( ${$self} );
 	    if ((ref $val) && $val->isa(__PACKAGE__)) {
 		return $val;
 	    } else {
